@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\ProductException;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -23,5 +24,18 @@ class ProductController extends Controller
         ];
 
         return response()->json($this->productService->getAllProducts($pagination));
+    }
+
+    public function deleteProduct($id): JsonResponse
+    {
+        try {
+            $this->productService->deleteProduct($id);
+
+            return response()->json([
+               'message' => "Product $id has been deleted successfully"
+            ]);
+        } catch (ProductException $ex) {
+            return $ex->render();
+        }
     }
 }
