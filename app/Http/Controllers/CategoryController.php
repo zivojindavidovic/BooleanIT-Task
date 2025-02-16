@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\CategoryException;
 use App\Services\CategoryService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -44,5 +45,18 @@ class CategoryController extends Controller
         ];
 
         return response()->json($this->categoryService->getCategoryProducts($categoryId, $pagination));
+    }
+
+    public function deleteCategory($categoryId): JsonResponse
+    {
+        try {
+            $this->categoryService->deleteCategory($categoryId);
+
+            return response()->json([
+                'message' => "Category $categoryId deleted successfully"
+            ]);
+        } catch (CategoryException $ex) {
+            return $ex->render();
+        }
     }
 }
