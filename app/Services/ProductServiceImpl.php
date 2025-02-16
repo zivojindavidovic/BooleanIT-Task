@@ -17,6 +17,16 @@ class ProductServiceImpl implements ProductService
         );
     }
 
+    public function updateProduct(Product $product, array $data)
+    {
+        $product->regular_price = $data['regular_price'];
+        $product->sale_price = $data['sale_price'];
+
+        $product->save();
+
+        return $product;
+    }
+
     public function deleteProduct(int $id)
     {
         $product = Product::findOrFail($id);
