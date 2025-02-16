@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Enums\StatusEnum;
+use App\Exceptions\ProductException;
 use App\Models\Product;
+use function Symfony\Component\Translation\t;
 
 class ProductServiceImpl implements ProductService
 {
@@ -13,5 +15,18 @@ class ProductServiceImpl implements ProductService
             perPage: $pagination['per_page'],
             page: $pagination['page']
         );
+    }
+
+    public function deleteProduct(int $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $isProductDeleted = $product->status == StatusEnum::DELETED->value;
+        if ($isProductDeleted) {
+            throw new ProductException("Product has already been deleted", 400);
+        }
+
+        $product->status = StatusEnum::DELETED;
+        $product->save();
     }
 }
