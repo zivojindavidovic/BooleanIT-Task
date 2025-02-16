@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -31,5 +32,21 @@ class Product extends Model
     public function manufacturer()
     {
         return $this->belongsTo(Manufacturer::class, 'manufacturer_id', 'manufacturer_id');
+    }
+
+    public function isDeleted(): bool
+    {
+        return $this->status == StatusEnum::DELETED->value;
+    }
+
+    public function offsetGet($offset): mixed
+    {
+        $camelCaseOffset = lcfirst(str_replace('_', '', ucwords($offset, '_')));
+
+        if (method_exists($this, $camelCaseOffset)) {
+            return $this->$camelCaseOffset();
+        }
+
+        return parent::offsetGet($offset);
     }
 }
