@@ -36,4 +36,13 @@ class CategoryController extends Controller
         return response()->json($result);
     }
 
+    public function getCategoryProducts(Request $request, $categoryId): JsonResponse
+    {
+        $pagination = [
+            'page' => $request->input('page', 1),
+            'per_page' => $request->input('per_page', 25),
+        ];
+
+        return response()->json($this->categoryService->getCategoryProducts($categoryId, $pagination));
+    }
 }
