@@ -30,9 +30,11 @@ class CategoryController extends Controller
 
     public function updateCategory(Request $request, $categoryId): JsonResponse
     {
-        $categoryName = $request->input('category_name');
+        $validated = $request->validate([
+            'category_name' => 'required|string'
+        ]);
 
-        $result = $this->categoryService->updateCategory($categoryId, $categoryName);
+        $result = $this->categoryService->updateCategory($categoryId, $validated['category_name']);
 
         return response()->json($result);
     }
