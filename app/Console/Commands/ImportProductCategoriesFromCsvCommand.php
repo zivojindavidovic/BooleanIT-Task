@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Enums\ProductStatusEnum;
+use App\Enums\StatusEnum;
 use App\Models\Category;
 use App\Models\Department;
 use App\Models\Manufacturer;
@@ -56,7 +56,8 @@ class ImportProductCategoriesFromCsvCommand extends Command
             $salePrice        = $record['sale_price'];
 
             $category = Category::firstOrCreate([
-                'category_name' => $categoryName
+                'category_name' => $categoryName,
+                'status'        => StatusEnum::ACTIVE
             ]);
 
             $department = Department::firstOrCreate([
@@ -76,7 +77,7 @@ class ImportProductCategoriesFromCsvCommand extends Command
                 'upc'            => $upc,
                 'regular_price'  => $regularPrice,
                 'sale_price'     => $salePrice,
-                'status'         => ProductStatusEnum::ACTIVE->value
+                'status'         => StatusEnum::ACTIVE->value
             ]);
         }
 
