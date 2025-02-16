@@ -59,4 +59,17 @@ class CategoryController extends Controller
             return $ex->render();
         }
     }
+
+    public function exportCategoryProducts($categoryId)
+    {
+        $result = $this->categoryService->exportCategoryProducts($categoryId);
+
+        $csvContents = $result['csvContents'];
+        $fileName = $result['fileName'];
+
+        return response($csvContents, 200, [
+            'Content-Type'        => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$fileName\"",
+        ]);
+    }
 }
