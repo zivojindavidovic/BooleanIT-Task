@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\ProductException;
+use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -24,6 +25,20 @@ class ProductController extends Controller
         ];
 
         return response()->json($this->productService->getAllProducts($pagination));
+    }
+
+    public function updateProduct(Request $request, $id): JsonResponse
+    {
+        $product = Product::findOrFail($id);
+
+        $data = [
+            'regular_price' => $request->input('regular_price', $product->regular_price),
+            'sale_price' => $request->input('sale_price', $product->sale_price),
+        ];
+
+        $result = $this->productService->updateProduct($product, $data);
+
+        return response()->json($result);
     }
 
     public function deleteProduct($id): JsonResponse

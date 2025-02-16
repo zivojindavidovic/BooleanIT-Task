@@ -10,4 +10,5 @@ Route::delete('/categories/{id}', [CategoryController::class, 'deleteCategory'])
 Route::get('/categories/{id}/products', [CategoryController::class, 'getCategoryProducts']);
 
 Route::get('/products', [ProductController::class, 'getAllProducts']);
+Route::put('products/{id}', [ProductController::class, 'updateProduct']);
 Route::delete('products/{id}', [ProductController::class, 'deleteProduct']);
