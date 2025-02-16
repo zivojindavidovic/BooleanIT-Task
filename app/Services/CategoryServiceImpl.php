@@ -7,21 +7,23 @@ use App\Exceptions\CategoryException;
 use App\Models\Category;
 use App\Models\Product;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use League\Csv\Writer;
 use SplTempFileObject;
 
 class CategoryServiceImpl implements CategoryService
 {
 
-    public function getAllCategories(array $pagination)
+    public function getAllCategories(array $pagination): Collection
     {
-        return Category::where('status', StatusEnum::ACTIVE)->paginate(
-            perPage: $pagination['per_page'],
-            page: $pagination['page']
-        );
+        return Category::where('status', StatusEnum::ACTIVE)
+            ->simplePaginate(
+                perPage: $pagination['per_page'],
+                page: $pagination['page']
+            )->getCollection();
     }
 
-    public function updateCategory(int $categoryId, string $categoryName)
+    public function updateCategory(int $categoryId, string $categoryName): Category
     {
         $category = Category::findOrFail($categoryId);
         $category->category_name = $categoryName;
@@ -31,37 +33,31 @@ class CategoryServiceImpl implements CategoryService
         return $category;
     }
 
-    public function getCategoryProducts(int $categoryId, array $pagination)
+    public function getCategoryProducts(int $categoryId, array $pagination): Collection
     {
         return Product::whereHas('category', function ($query) use ($categoryId) {
             $query->where('category_id', $categoryId)
                 ->where('status', StatusEnum::ACTIVE);
         })
             ->where('status', StatusEnum::ACTIVE)
-            ->paginate(
+            ->simplePaginate(
                 perPage: $pagination['per_page'],
                 page: $pagination['page']
-            );
+            )->getCollection();
     }
 
     /**
      * @throws CategoryException
      */
-    public function deleteCategory(int $categoryId)
+    public function deleteCategory(int $categoryId): void
     {
         $category = Category::findOrFail($categoryId);
 
-        $isCategoryDeleted = $category->status == StatusEnum::DELETED->value;
-
-        if ($isCategoryDeleted) {
+        if ($category['is_deleted']) {
             throw new CategoryException("Category has already been deleted", 400);
         }
 
-        $categoryHasActiveProducts = $category->products()
-            ->where('status', StatusEnum::ACTIVE->value)
-            ->count();
-
-        if ($categoryHasActiveProducts > 0) {
+        if ($category['active_products'] > 0) {
             throw new CategoryException("Category has active products", 400);
         }
 
@@ -69,7 +65,7 @@ class CategoryServiceImpl implements CategoryService
         $category->save();
     }
 
-    public function exportCategoryProducts(int $categoryId)
+    public function exportCategoryProducts(int $categoryId): array
     {
         $category = Category::findOrFail($categoryId);
         $products = Product::with(['category', 'department', 'manufacturer'])
