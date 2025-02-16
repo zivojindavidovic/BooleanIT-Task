@@ -26,4 +26,14 @@ class CategoryController extends Controller
 
         return response()->json($categories);
     }
+
+    public function updateCategory(Request $request, $categoryId): JsonResponse
+    {
+        $categoryName = $request->input('category_name');
+
+        $result = $this->categoryService->updateCategory($categoryId, $categoryName);
+
+        return response()->json($result);
+    }
+
 }
