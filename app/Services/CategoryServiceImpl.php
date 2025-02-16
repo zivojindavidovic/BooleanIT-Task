@@ -15,4 +15,14 @@ class CategoryServiceImpl implements CategoryService
             page: $pagination['page']
         );
     }
+
+    public function updateCategory(int $categoryId, string $categoryName)
+    {
+        $category = Category::findOrFail($categoryId);
+        $category->category_name = $categoryName;
+
+        $category->save();
+
+        return $category;
+    }
 }
