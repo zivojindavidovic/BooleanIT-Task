@@ -32,7 +32,7 @@ class ProductController extends Controller
      * Get all products.
      *
      * @OA\Get(
-     *     path="/products",
+     *     path="/api/v1/products",
      *     tags={"Products"},
      *     summary="Get all products",
      *     @OA\Parameter(
@@ -70,7 +70,7 @@ class ProductController extends Controller
      * Update a product.
      *
      * @OA\Put(
-     *     path="/products/{id}",
+     *     path="/api/v1/products/{id}",
      *     tags={"Products"},
      *     summary="Update a product",
      *     @OA\Parameter(
@@ -126,7 +126,7 @@ class ProductController extends Controller
      * Delete a product.
      *
      * @OA\Delete(
-     *     path="/products/{id}",
+     *     path="/api/v1/products/{id}",
      *     tags={"Products"},
      *     summary="Delete a product",
      *     @OA\Parameter(

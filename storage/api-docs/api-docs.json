@@ -6,14 +6,14 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/categories": {
+        "/api/v1/categories": {
             "get": {
                 "tags": [
                     "Categories"
                 ],
                 "summary": "Get all categories",
                 "description": "Get all categories.",
-                "operationId": "64e7f64d53050c5582e7f6e59e2e4285",
+                "operationId": "af8a7c6b1a539253e3246700fd1aaedc",
                 "parameters": [
                     {
                         "name": "page",
@@ -53,14 +53,14 @@
                 }
             }
         },
-        "/categories/{categoryId}": {
+        "/api/v1/categories/{categoryId}": {
             "put": {
                 "tags": [
                     "Categories"
                 ],
                 "summary": "Update a category",
                 "description": "Update a category.",
-                "operationId": "65b5c5af2c07a6be0d1548e1d460429c",
+                "operationId": "88ab48a84b7dea0474959037c58c417c",
                 "parameters": [
                     {
                         "name": "categoryId",
@@ -114,7 +114,7 @@
                 ],
                 "summary": "Delete a category",
                 "description": "Delete a category.",
-                "operationId": "f54abd0bfe431e451975d25948281523",
+                "operationId": "0e3cf4d72ecdda8b7654b96cde907751",
                 "parameters": [
                     {
                         "name": "categoryId",
@@ -147,14 +147,14 @@
                 }
             }
         },
-        "/categories/{categoryId}/products": {
+        "/api/v1/categories/{categoryId}/products": {
             "get": {
                 "tags": [
                     "Categories"
                 ],
                 "summary": "Get products in a category",
                 "description": "Get products in a category.",
-                "operationId": "b0694a96359aaf4062de115cc620b95d",
+                "operationId": "e81ac206e90523d174f972630f969245",
                 "parameters": [
                     {
                         "name": "categoryId",
@@ -184,14 +184,14 @@
                 }
             }
         },
-        "/categories/{categoryId}/products/export": {
+        "/api/v1/categories/{categoryId}/products/export": {
             "get": {
                 "tags": [
                     "Categories"
                 ],
                 "summary": "Export category products as CSV",
                 "description": "Exports all products in a given category as a downloadable CSV file.",
-                "operationId": "f01e552f2db61b224570b223c765bc02",
+                "operationId": "7a6a4b35efbf683a28b2e36f35cc048b",
                 "parameters": [
                     {
                         "name": "categoryId",
@@ -231,14 +231,14 @@
                 }
             }
         },
-        "/products": {
+        "/api/v1/products": {
             "get": {
                 "tags": [
                     "Products"
                 ],
                 "summary": "Get all products",
                 "description": "Get all products.",
-                "operationId": "423f7e42ca4971f5d3d5f88cac408ce3",
+                "operationId": "2edf916735efe3678721a3da72a4a052",
                 "parameters": [
                     {
                         "name": "page",
@@ -278,14 +278,14 @@
                 }
             }
         },
-        "/products/{id}": {
+        "/api/v1/products/{id}": {
             "put": {
                 "tags": [
                     "Products"
                 ],
                 "summary": "Update a product",
                 "description": "Update a product.",
-                "operationId": "9491c2cb86033310194e954a3fb2d772",
+                "operationId": "ef3ac92306a3827ff30f98efc6f49448",
                 "parameters": [
                     {
                         "name": "id",
@@ -346,7 +346,7 @@
                 ],
                 "summary": "Delete a product",
                 "description": "Delete a product.",
-                "operationId": "ebc8f1c81b2e9b0e47ef0930addcdf79",
+                "operationId": "93b8e5e09d76ade9578cdc1adb6366e3",
                 "parameters": [
                     {
                         "name": "id",

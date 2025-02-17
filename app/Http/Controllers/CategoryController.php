@@ -26,7 +26,7 @@ class CategoryController extends Controller
      * Get all categories.
      *
      * @OA\Get(
-     *     path="/categories",
+     *     path="/api/v1/categories",
      *     tags={"Categories"},
      *     summary="Get all categories",
      *     @OA\Parameter(
@@ -66,7 +66,7 @@ class CategoryController extends Controller
      * Update a category.
      *
      * @OA\Put(
-     *     path="/categories/{categoryId}",
+     *     path="/api/v1/categories/{categoryId}",
      *     tags={"Categories"},
      *     summary="Update a category",
      *     @OA\Parameter(
@@ -109,7 +109,7 @@ class CategoryController extends Controller
      * Get products in a category.
      *
      * @OA\Get(
-     *     path="/categories/{categoryId}/products",
+     *     path="/api/v1/categories/{categoryId}/products",
      *     tags={"Categories"},
      *     summary="Get products in a category",
      *     @OA\Parameter(
@@ -140,7 +140,7 @@ class CategoryController extends Controller
      * Delete a category.
      *
      * @OA\Delete(
-     *     path="/categories/{categoryId}",
+     *     path="/api/v1/categories/{categoryId}",
      *     tags={"Categories"},
      *     summary="Delete a category",
      *     @OA\Parameter(
@@ -176,7 +176,7 @@ class CategoryController extends Controller
      * Export products in a category as a CSV file.
      *
      * @OA\Get(
-     *     path="/categories/{categoryId}/products/export",
+     *     path="/api/v1/categories/{categoryId}/products/export",
      *     tags={"Categories"},
      *     summary="Export category products as CSV",
      *     description="Exports all products in a given category as a downloadable CSV file.",
