@@ -44,20 +44,20 @@ class ImportProductCategoriesFromCsvCommand extends Command
         $records = $csvFile->getRecords();
 
         foreach ($records as $offset => $record) {
-            $categoryName     = $record['category_name'];
+            $categoryName = $record['category_name'];
 
             //CSV has typo deparment instead of department
-            $departmentName   = $record['deparment_name'] ?? '';
+            $departmentName = $record['deparment_name'] ?? '';
             $manufacturerName = $record['manufacturer_name'];
-            $productNumber    = $record['product_number'];
-            $sku              = $record['sku'];
-            $upc              = $record['upc'];
-            $regularPrice     = $record['regular_price'];
-            $salePrice        = $record['sale_price'];
+            $productNumber = $record['product_number'];
+            $sku = $record['sku'];
+            $upc = $record['upc'];
+            $regularPrice = $record['regular_price'];
+            $salePrice = $record['sale_price'];
 
             $category = Category::firstOrCreate([
                 'category_name' => $categoryName,
-                'status'        => StatusEnum::ACTIVE
+                'status' => StatusEnum::ACTIVE
             ]);
 
             $department = Department::firstOrCreate([
@@ -69,15 +69,15 @@ class ImportProductCategoriesFromCsvCommand extends Command
             ]);
 
             Product::create([
-                'category_id'    => $category->category_id,
-                'department_id'  => $department->department_id,
-                'manufacturer_id'=> $manufacturer->manufacturer_id,
+                'category_id' => $category->category_id,
+                'department_id' => $department->department_id,
+                'manufacturer_id' => $manufacturer->manufacturer_id,
                 'product_number' => $productNumber,
-                'sku'            => $sku,
-                'upc'            => $upc,
-                'regular_price'  => $regularPrice,
-                'sale_price'     => $salePrice,
-                'status'         => StatusEnum::ACTIVE->value
+                'sku' => $sku,
+                'upc' => $upc,
+                'regular_price' => $regularPrice,
+                'sale_price' => $salePrice,
+                'status' => StatusEnum::ACTIVE->value
             ]);
         }
 

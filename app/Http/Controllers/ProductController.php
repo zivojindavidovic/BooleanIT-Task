@@ -23,6 +23,7 @@ use Nette\Schema\ValidationException;
 class ProductController extends Controller
 {
     private ProductService $productService;
+
     public function __construct(ProductService $productService)
     {
         $this->productService = $productService;
@@ -155,7 +156,7 @@ class ProductController extends Controller
             $this->productService->deleteProduct($id);
 
             return response()->json([
-               'message' => "Product $id has been deleted successfully"
+                'message' => "Product $id has been deleted successfully"
             ]);
         } catch (ProductException $ex) {
             return $ex->render();

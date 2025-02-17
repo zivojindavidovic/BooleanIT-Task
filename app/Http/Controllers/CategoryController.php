@@ -214,7 +214,7 @@ class CategoryController extends Controller
         $fileName = $result['fileName'];
 
         return response($csvContents, 200, [
-            'Content-Type'        => 'text/csv',
+            'Content-Type' => 'text/csv',
             'Content-Disposition' => "attachment; filename=\"$fileName\"",
         ]);
     }
