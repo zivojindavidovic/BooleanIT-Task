@@ -5,6 +5,19 @@ namespace App\Models;
 use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @OA\Schema(
+ *     schema="Category",
+ *     type="object",
+ *     title="Category",
+ *     description="Category model",
+ *     required={"category_id", "category_name", "status"},
+ *     @OA\Property(property="category_id", type="integer", example=1),
+ *     @OA\Property(property="category_name", type="string", example="Electronics"),
+ *     @OA\Property(property="status", type="string", enum={"active", "deleted"}, example="active"),
+ *     @OA\Property(property="products", type="array", @OA\Items(ref="#/components/schemas/Category"))
+ * )
+ */
 class Category extends Model
 {
     protected $table = 'categories';

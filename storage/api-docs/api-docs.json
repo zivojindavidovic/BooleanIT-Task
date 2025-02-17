@@ -1,11 +1,236 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Laravel API Documentation",
-        "description": "API documentation for Laravel application",
+        "title": "BooleanIT-Task API Documentation",
+        "description": "API documentation for BooleanIT task",
         "version": "1.0.0"
     },
     "paths": {
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get all categories",
+                "description": "Get all categories.",
+                "operationId": "64e7f64d53050c5582e7f6e59e2e4285",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of categories per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 25
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Category"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/{categoryId}": {
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Update a category",
+                "description": "Update a category.",
+                "operationId": "65b5c5af2c07a6be0d1548e1d460429c",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "category_name"
+                                ],
+                                "properties": {
+                                    "category_name": {
+                                        "type": "string",
+                                        "example": "Updated Category Name"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Delete a category",
+                "description": "Delete a category.",
+                "operationId": "f54abd0bfe431e451975d25948281523",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category 1 deleted successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/{categoryId}/products": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get products in a category",
+                "description": "Get products in a category.",
+                "operationId": "b0694a96359aaf4062de115cc620b95d",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Product"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/categories/{categoryId}/products/export": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Export category products as CSV",
+                "description": "Exports all products in a given category as a downloadable CSV file.",
+                "operationId": "f01e552f2db61b224570b223c765bc02",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CSV file download",
+                        "headers": {
+                            "Content-Disposition": {
+                                "description": "attachment; filename=category_products.csv",
+                                "schema": {
+                                    "type": "string",
+                                    "example": "attachment; filename=category_products.csv"
+                                }
+                            }
+                        },
+                        "content": {
+                            "text/csv": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                }
+            }
+        },
         "/products": {
             "get": {
                 "tags": [
@@ -160,6 +385,40 @@
     },
     "components": {
         "schemas": {
+            "Category": {
+                "title": "Category",
+                "description": "Category model",
+                "required": [
+                    "category_id",
+                    "category_name",
+                    "status"
+                ],
+                "properties": {
+                    "category_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "category_name": {
+                        "type": "string",
+                        "example": "Electronics"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "active",
+                            "deleted"
+                        ],
+                        "example": "active"
+                    },
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Category"
+                        }
+                    }
+                },
+                "type": "object"
+            },
             "Product": {
                 "title": "Product",
                 "description": "Product model",
@@ -191,11 +450,11 @@
                     },
                     "product_number": {
                         "type": "string",
-                        "example": "PRD-123456"
+                        "example": "123456"
                     },
                     "sku": {
                         "type": "string",
-                        "example": "SKU-987654",
+                        "example": "987654",
                         "nullable": true
                     },
                     "upc": {
@@ -217,11 +476,10 @@
                     "status": {
                         "type": "string",
                         "enum": [
-                            "ACTIVE",
-                            "INACTIVE",
-                            "DELETED"
+                            "active",
+                            "deleted"
                         ],
-                        "example": "ACTIVE"
+                        "example": "active"
                     }
                 },
                 "type": "object"
@@ -230,8 +488,12 @@
     },
     "tags": [
         {
+            "name": "Categories",
+            "description": "Endpoints related to categories"
+        },
+        {
             "name": "Products",
-            "description": "Products"
+            "description": "Endpoints related to products"
         }
     ]
 }
