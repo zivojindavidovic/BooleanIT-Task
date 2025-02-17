@@ -74,12 +74,13 @@ class CategoryServiceImpl implements CategoryService
 
         $csv = Writer::createFromFileObject(new SplTempFileObject());
 
-        $csv->insertOne(['product_id','product_number','sku','regular_price','sale_price','department_name','manufacturer_name']);
+        $csv->insertOne(['product_id','product_number', 'upc', 'sku','regular_price','sale_price','department_name','manufacturer_name']);
 
         foreach ($products as $p) {
             $csv->insertOne([
                 $p->product_id,
                 $p->product_number,
+                $p->upc,
                 $p->sku,
                 $p->regular_price,
                 $p->sale_price,
