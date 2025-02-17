@@ -1,6 +1,6 @@
 Commands, links & explanations:
 
-Application is dockerized so application is running using ./vendor/bin/sail down command.
+Application is dockerized so application is running using ./vendor/bin/sail up -d command.
 
 Run the migration using php artisan migrate.
 
