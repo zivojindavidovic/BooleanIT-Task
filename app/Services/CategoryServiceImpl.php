@@ -57,7 +57,7 @@ class CategoryServiceImpl implements CategoryService
             throw new CategoryException("Category has already been deleted", 400);
         }
 
-        if ($category['active_products'] > 0) {
+        if ($category['has_active_products']) {
             throw new CategoryException("Category has active products", 400);
         }
 

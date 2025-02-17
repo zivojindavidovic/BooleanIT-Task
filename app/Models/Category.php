@@ -24,11 +24,9 @@ class Category extends Model
         return $this->status == StatusEnum::DELETED->value;
     }
 
-    public function activeProducts(): int
+    private function hasActiveProducts(): bool
     {
-        return $this->products()
-            ->where('status', StatusEnum::ACTIVE->value)
-            ->count() ?? 0;
+        return $this->activeProducts() > 0;
     }
 
     public function offsetGet($offset): mixed
@@ -40,5 +38,12 @@ class Category extends Model
         }
 
         return parent::offsetGet($offset);
+    }
+
+    private function activeProducts(): int
+    {
+        return $this->products()
+            ->where('status', StatusEnum::ACTIVE->value)
+            ->count() ?? 0;
     }
 }
