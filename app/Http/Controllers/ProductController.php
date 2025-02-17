@@ -7,12 +7,17 @@ use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Nette\Schema\ValidationException;
 
 /**
  * @OA\Info(
  *     title="BooleanIT-Task API Documentation",
  *     version="1.0.0",
- *     description="API documentation for Products"
+ *     description="API documentation for BooleanIT task"
+ * )
+ * @OA\Tag(
+ *     name="Products",
+ *     description="Endpoints related to products"
  * )
  */
 class ProductController extends Controller
@@ -96,16 +101,25 @@ class ProductController extends Controller
      */
     public function updateProduct(Request $request, $id): JsonResponse
     {
-        $product = Product::findOrFail($id);
+        try {
+            $request->validate([
+                'regular_price' => 'nullable|numeric|min:1',
+                'sale_price' => 'nullable|numeric|min:1',
+            ]);
 
-        $data = [
-            'regular_price' => $request->input('regular_price', $product->regular_price),
-            'sale_price' => $request->input('sale_price', $product->sale_price),
-        ];
+            $product = Product::findOrFail($id);
 
-        $result = $this->productService->updateProduct($product, $data);
+            $data = [
+                'regular_price' => $request->input('regular_price', $product->regular_price),
+                'sale_price' => $request->input('sale_price', $product->sale_price),
+            ];
 
-        return response()->json($result);
+            $result = $this->productService->updateProduct($product, $data);
+
+            return response()->json($result);
+        } catch (ValidationException $ex) {
+            return response()->json(['error' => $ex->getMessage()], 400);
+        }
     }
 
     /**
