@@ -14,8 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  *     required={"category_id", "category_name", "status"},
  *     @OA\Property(property="category_id", type="integer", example=1),
  *     @OA\Property(property="category_name", type="string", example="Electronics"),
- *     @OA\Property(property="status", type="string", enum={"active", "deleted"}, example="active"),
- *     @OA\Property(property="products", type="array", @OA\Items(ref="#/components/schemas/Category"))
+ *     @OA\Property(property="status", type="string", enum={"active", "deleted"}, example="active")
  * )
  */
 class Category extends Model

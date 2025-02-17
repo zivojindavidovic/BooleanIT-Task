@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  *     type="object",
  *     title="Product",
  *     description="Product model",
- *     required={"product_id", "category_id", "department_id", "manufacturer_id", "product_number", "regular_price", "status"},
+ *     required={"product_id", "category_id", "department_id", "manufacturer_id", "status"},
  *     @OA\Property(property="product_id", type="integer", example=1),
  *     @OA\Property(property="category_id", type="integer", example=10),
  *     @OA\Property(property="department_id", type="integer", example=3),
